@@ -1,13 +1,9 @@
 from django.contrib import admin
+from .models import SearchArea, TelegramUser, Result, User as CustomUser
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm
-from django.contrib.auth.models import Group
+
 from django.utils.translation import gettext_lazy as _
-
-from .models import Result, SearchArea, TelegramUser
-from .models import User as CustomUser
-
-# admin.site.register(Group, GroupAdmin)
 
 
 class CustomnUserChangeForm(UserChangeForm):
@@ -20,7 +16,6 @@ class CustomnUserChangeForm(UserChangeForm):
 class CustomUserAdmin(UserAdmin):
     form = CustomnUserChangeForm
     list_display = ("username", "email", "first_name", "last_name", "is_staff", "role")
-    # readonly_fields = ["date_joined", "last_login"]
 
     fieldsets = (
         (None, {"fields": ("username", "password")}),
@@ -29,11 +24,9 @@ class CustomUserAdmin(UserAdmin):
             _("Permissions"),
             {
                 "fields": (
-                    # "role",
                     "is_active",
                     "is_staff",
                     "is_superuser",
-                    # "groups",
                     "user_permissions",
                 ),
             },
