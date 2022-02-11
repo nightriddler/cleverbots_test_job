@@ -13,7 +13,7 @@ API_GEO_TOKEN = os.getenv("API_GEO_TOKEN")
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [
