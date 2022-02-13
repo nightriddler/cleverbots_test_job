@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 API_GEO_TOKEN = os.getenv("API_GEO_TOKEN")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -56,11 +56,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "django_tg_bot.wsgi.application"
 
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "PORT": os.getenv("POSTGRES_PORT"),
     }
 }
 
@@ -88,7 +91,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -105,3 +110,5 @@ USER_ROLE_PERMISSIONS = {
         "delete_result",
     ],
 }
+
+DESCRIPTION_ROLE = "Пользователи могут просматривать разрешенные области поиска и результаты, а также удалять результаты. Модераторы могу делать все операции с областями поиска и просматривать и удалять результаты."

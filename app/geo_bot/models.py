@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser, Permission
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from django_tg_bot.settings import USER_ROLE_PERMISSIONS
+from django_tg_bot.settings import USER_ROLE_PERMISSIONS, DESCRIPTION_ROLE
 
 
 class User(AbstractUser):
@@ -10,10 +10,7 @@ class User(AbstractUser):
     role = models.CharField(
         max_length=250,
         verbose_name="Роль пользователя",
-        help_text=(
-            "Пользователи могут просматривать разрешенные области поиска и результаты, а также удалять результаты.",
-            "Модераторы могу делать все операции с областями поиска и просматривать и удалять результаты.",
-        ),
+        help_text=DESCRIPTION_ROLE,
         choices=ROLE_CHOICES,
         default="user",
     )

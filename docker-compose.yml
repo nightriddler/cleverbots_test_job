@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "8000:8000"
+    volumes:
+      - static_value:/static/
+      - media_value:/media/
+      # - ./nginx/django_tg_bot_nginx.conf:/etc/nginx/conf.d/default.conf # этот файл нам не нужен, все инструкции в докерфайле ./nginx
+    restart: always
+    depends_on:
+      - web
+
+  web:
+    build:
+      context: ./app
+    container_name: django_tg_bot
+    volumes:
+      - static_value:/code/static/
+      - media_value:/code/media/
+      - ./nginx:/code/conf/
+      # - .app:/code/app/ # копируем в докерфайле ./app, тут лишние 
+    depends_on:
+      - db
+    restart: always
+    env_file:
+      - ./.env
+    expose:
+      - "8001"
+
+  db:
+    image: postgres:12.4
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    restart: always
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
+  static_value:
+  media_value:
