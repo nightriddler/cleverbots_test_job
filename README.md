@@ -99,25 +99,22 @@ POSTGRES_PORT=5432
 docker-compose up -d
 ```
 
-4. Делаем миграции и собираем статику
+4. Делаем миграции, собираем статику, создаем супер пользователя
 ```
 docker-compose exec django_admin python manage.py migrate --noinput
 docker-compose exec django_admin python manage.py collectstatic --noinput
-```
-5. Создаем супер пользователя
-```
 docker-compose exec django_admin python manage.py createsuperuser
 ```
-6. Панель управления доступна по адресу
+5. Панель управления доступна по адресу
 ```
 http://127.0.0.1/admin
 ```
-8. После миграций, через панель управления необходимо добавить `Область поиска` после чего телеграм-бот можно будет использовать.
+6. После миграций, через панель управления необходимо добавить `Область поиска` после чего телеграм-бот можно будет использовать.
 >Бот запускается автоматически и доступен в соответсвии с указанным `BOT_TOKEN` в `.env`.
 
 # Тесты
 ```
-docker-compose exec django_admin python  manage.py test
+docker-compose exec django_admin python manage.py test
 ```
 >Тесты запускать после миграций
 
