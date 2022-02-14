@@ -2,7 +2,6 @@
 [![Styles](https://img.shields.io/github/workflow/status/nightriddler/cleverbots_test_job/Styles?label=Styles)](https://github.com/nightriddler/cleverbots_test_job/actions/workflows/styles.yml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 ![license MIT](https://img.shields.io/github/license/nightriddler/cleverbots_test_job)
-
 Тестовое задание для Cleverbots.
 
 Создать бота и панель управления ботом для Телеграм.
@@ -11,7 +10,6 @@
 Бот и панель управления подключены к одной базе данных (любая реляционная).
 
 # Бот
-Бот выводить полный адрес объекта по короткому тексту запроса с использованием API Яндекс Карт. А также показывает всю историю успешных запросов.
 ## Элементы управления
 ### Главное меню (вызывается по команде `/start`)
 
@@ -90,6 +88,11 @@ POSTGRES_PORT=5432
 >echo $(openssl rand -hex 32)
 >```
 
+>[Получить токен бота](https://t.me/BotFather)
+
+>[Получить токен API Геокодера](https://yandex.ru/dev/maps/geocoder/doc/desc/concepts/about.html)
+
+
 3. Запускаем docker-compose  
 ```
 docker-compose up -d
@@ -108,14 +111,16 @@ docker-compose exec django_admin python manage.py createsuperuser
 ```
 http://127.0.0.1/admin
 ```
-8. Телеграм-бот будет также доступен в соотвествии с указанными переменными окружения.
+8. После миграций, через панель управления необходимо добавить `Область поиска` после чего телеграм-бот можно будет использовать.
+>Бот запускается автоматически и доступен в соответсвии с указанным `BOT_TOKEN` в `.env`.
 
 # Тесты
-После миграций можно запустить тесты:
 ```
 docker-compose exec django_admin python  manage.py test
 ```
->Для запуска тестов обязательно требуется `API_GEO_TOKEN` в `.env`.
+>Тесты запускать после миграций
+
+>Для запуска тестов обязательно наличие `API_GEO_TOKEN` в `.env`.
 
 
 ## Связаться с автором
