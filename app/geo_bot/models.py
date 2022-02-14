@@ -2,7 +2,8 @@ from django.contrib.auth.models import AbstractUser, Permission
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from django_tg_bot.settings import USER_ROLE_PERMISSIONS, DESCRIPTION_ROLE
+
+from django_tg_bot.settings import DESCRIPTION_ROLE, USER_ROLE_PERMISSIONS
 
 
 class User(AbstractUser):
@@ -12,7 +13,6 @@ class User(AbstractUser):
         verbose_name="Роль пользователя",
         help_text=DESCRIPTION_ROLE,
         choices=ROLE_CHOICES,
-        default="user",
     )
 
 
@@ -23,7 +23,7 @@ def prepare_creat_user_profile(sender, instance, **kwargs):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.role:
         instance.user_permissions.set(
             [
                 Permission.objects.get(codename=perm)

@@ -5,4 +5,4 @@ WORKDIR /code
 COPY ./requirements.txt .
 RUN pip install -r ./requirements.txt
 COPY . .
-CMD ["uwsgi", "--master", "--ini", "/code/conf/django_tg_bot_uswgi.ini"]
+CMD ["uwsgi", "--master", "--ini", "/code/conf/uswgi.ini"]

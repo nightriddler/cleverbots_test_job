@@ -1,8 +1,9 @@
 import logging
 
 import requests
-from geo_bot.models import Result, SearchArea, TelegramUser
 from requests.exceptions import RequestException
+
+from geo_bot.models import Result, SearchArea, TelegramUser
 
 
 def get_count_response(chat_id):
@@ -29,7 +30,7 @@ def get_addresses(location):
 
 def get_response_geo(location):
     """
-    Поиск ближайшего адреса по указанной локации.
+    Получение ответа по запросу поиска до ближайшего адреса указанной локации.
     """
     from django_tg_bot.settings import API_GEO_TOKEN
 
@@ -60,12 +61,11 @@ def response_processing(response):
                     "GeocoderMetaData"
                 ]["text"]
                 return find_address
-    # return "В доступных зонах поиска не найден адрес."
 
 
-def save_db(location, result, chat_id):
+def save_db(query, result, chat_id):
     """
     Сохранение адреса в БД.
     """
-    result, _ = Result.objects.get_or_create(query=location, result=result)
+    result, _ = Result.objects.get_or_create(query=query, result=result)
     TelegramUser.objects.get_or_create(user_id=chat_id, result=result)

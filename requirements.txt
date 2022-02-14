@@ -1,7 +1,0 @@
-black==22.1.0
-Django==4.0.2
-psycopg2==2.9.3
-python-dotenv==0.19.2
-python-telegram-bot==13.11
-requests==2.27.1
-uwsgi

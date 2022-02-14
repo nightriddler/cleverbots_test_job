@@ -3,12 +3,13 @@ import sys
 from logging import StreamHandler
 
 from django.core.management.base import BaseCommand
-from django_tg_bot.settings import BOT_TOKEN
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import ConversationHandler, Filters, MessageHandler, Updater
 from telegram.ext.commandhandler import CommandHandler
 
-from .utils import get_addresses, get_count_response, save_db
+from django_tg_bot.settings import BOT_TOKEN
+
+from .utils.seacrh import get_addresses, get_count_response, save_db
 
 
 def start(update, context):
@@ -46,10 +47,10 @@ def first(update, context):
 
 
 def second(update, context):
-    location = update.message.text
-    addresses = get_addresses(location)
+    query = update.message.text
+    addresses = get_addresses(query)
     if addresses:
-        save_db(location, addresses, update.message.chat_id)
+        save_db(query, addresses, update.message.chat_id)
     else:
         addresses = "В доступных зонах поиска не найден адрес."
     context.bot.send_message(
@@ -60,9 +61,6 @@ def second(update, context):
 
 
 def again(update, context):
-    """
-    Обработка текстового запроса.
-    """
     context.bot.send_message(
         chat_id=update.message.chat_id,
         text=f"Что-то не понятное.\nДавайте начнем сначала /start",
