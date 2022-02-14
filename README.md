@@ -2,6 +2,7 @@
 [![Styles](https://img.shields.io/github/workflow/status/nightriddler/cleverbots_test_job/Styles?label=Styles)](https://github.com/nightriddler/cleverbots_test_job/actions/workflows/styles.yml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 ![license MIT](https://img.shields.io/github/license/nightriddler/cleverbots_test_job)
+
 Тестовое задание для Cleverbots.
 
 Создать бота и панель управления ботом для Телеграм.
@@ -83,7 +84,7 @@ POSTGRES_PASSWORD=postgres
 POSTGRES_HOST=db
 POSTGRES_PORT=5432
 ```
-> сгенерировать SECRET_KEY можно в терминале:
+> Cгенерировать SECRET_KEY можно в терминале:
 >```
 >echo $(openssl rand -hex 32)
 >```
